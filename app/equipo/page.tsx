@@ -211,9 +211,9 @@ export default function EquipoPage() {
                   alt=""
                   aria-hidden="true"
                   fill
+                  unoptimized
                   className="object-contain transition-transform duration-500 group-hover:scale-105"
                   sizes="240px"
-                  quality={75}
                   priority={i < 3}
                   placeholder="blur"
                   blurDataURL={DARK_BLUR}
@@ -245,9 +245,9 @@ export default function EquipoPage() {
                   alt=""
                   aria-hidden="true"
                   fill
+                  unoptimized
                   className="object-contain transition-transform duration-500 group-hover:scale-105"
                   sizes="(min-width: 1280px) 20vw, 25vw"
-                  quality={75}
                   priority={i < 10}
                   placeholder="blur"
                   blurDataURL={DARK_BLUR}
@@ -289,9 +289,8 @@ export default function EquipoPage() {
                   aria-hidden="true"
                   width={600}
                   height={900}
+                  unoptimized
                   className="w-full h-auto block"
-                  sizes="72vw"
-                  quality={72}
                   loading="lazy"
                   placeholder="blur"
                   blurDataURL={DARK_BLUR}
@@ -311,9 +310,8 @@ export default function EquipoPage() {
                     aria-hidden="true"
                     width={600}
                     height={900}
+                    unoptimized
                     className="w-full h-auto block"
-                    sizes="(min-width: 1024px) 25vw, 33vw"
-                    quality={72}
                     loading="lazy"
                     placeholder="blur"
                     blurDataURL={DARK_BLUR}
