@@ -19,6 +19,8 @@ REPO_URL="${FITMASTER_REPO_URL:-https://github.com/msanjuan04/fitmaster.git}"
 BRANCH="${FITMASTER_BRANCH:-main}"
 BIND_HOST="${FITMASTER_BIND:-127.0.0.1}"
 PORT="${FITMASTER_PORT:-3000}"
+# Dominio público (para Nginx server_name); con DNS Nominalia → IP del VPS antes de usar HTTPS.
+FITMASTER_DOMAIN="${FITMASTER_DOMAIN:-fitmaster.es}"
 
 if [[ "$(id -u)" -ne 0 ]]; then
   echo "Ejecuta con sudo/root." >&2
@@ -82,21 +84,21 @@ WantedBy=multi-user.target
 EOF
 
 NGINX_SITE=/etc/nginx/sites-available/fitmaster
-tee "$NGINX_SITE" >/dev/null <<'NGINX_EOF'
+tee "$NGINX_SITE" >/dev/null <<NGINX_EOF
 server {
     listen 80;
     listen [::]:80;
 
-    server_name _;
+    server_name ${FITMASTER_DOMAIN} www.${FITMASTER_DOMAIN};
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:${PORT};
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
     }
 }
 NGINX_EOF
@@ -118,8 +120,12 @@ if command -v ufw >/dev/null 2>&1; then
 fi
 
 echo ""
-echo "Listo. App en ${INSTALL_DIR}, Next escuchando ${BIND_HOST}:${PORT} tras Nginx (puerto 80)."
+echo "Listo. App en ${INSTALL_DIR}, Next escuchando ${BIND_HOST}:${PORT}; Nginx (80) sirve fitmaster.es."
 echo "Logs: journalctl -u fitmaster -f"
+echo ""
+echo "Si el DNS ya apunta este servidor, activa HTTPS (Let's Encrypt):"
+echo "  sudo apt install -y certbot python3-certbot-nginx"
+echo "  sudo certbot --nginx -d ${FITMASTER_DOMAIN} -d www.${FITMASTER_DOMAIN}"
 echo ""
 echo "Actualizaciones rápidas (en el servidor):"
 echo "  cd ${INSTALL_DIR} && git pull && npm ci && npm run build && systemctl restart fitmaster"
