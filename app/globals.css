@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fitgreen: #D7FB04;
+  --fitblack: #000000;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden; /* prevent accidental horizontal scroll */
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-opensans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* prevent text from being too small on iOS */
+  -webkit-text-size-adjust: 100%;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #D7FB04; }
+
+@layer components {
+  /* Botones angulares estilo B */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-fitgreen text-black font-heading font-black text-xs uppercase tracking-widest px-6 py-3 md:px-8 md:py-4 transition-all duration-200 hover:bg-white;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-white text-white font-heading font-black text-xs uppercase tracking-widest px-6 py-3 md:px-8 md:py-4 transition-all duration-200 hover:border-fitgreen hover:text-fitgreen;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+
+  .btn-outline-green {
+    @apply inline-flex items-center gap-2 border border-fitgreen text-fitgreen font-heading font-black text-xs uppercase tracking-widest px-6 py-3 md:px-8 md:py-4 transition-all duration-200 hover:bg-fitgreen hover:text-black;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+
+  .btn-black-on-green {
+    @apply inline-flex items-center gap-2 bg-black text-fitgreen font-heading font-black text-xs uppercase tracking-widest px-8 py-4 md:px-10 md:py-5 hover:bg-[#111] transition-colors;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+
+  /* Label de sección estilo editorial D */
+  .section-label {
+    @apply text-fitgreen font-body text-xs uppercase tracking-[0.3em] font-semibold;
+  }
+
+  /* Texto vertical estilo D */
+  .text-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    @apply text-fitgreen font-body text-xs uppercase tracking-[0.3em] font-semibold;
+  }
+
+  .section-title {
+    @apply font-heading font-black text-white uppercase leading-none;
+  }
+
+  .card-dark {
+    @apply bg-[#111111] border border-[#1a1a1a];
+  }
+
+  /* Separador diagonal estilo B */
+  .diagonal-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  }
+
+  .diagonal-top {
+    clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .diagonal-both {
+    clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+  }
+
+  /* Línea divisoria editorial */
+  .editorial-divider {
+    @apply w-px bg-[#1a1a1a];
+  }
+}
