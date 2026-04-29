@@ -293,7 +293,7 @@ function buildUserEmail(opts: {
 
           <!-- ¿NECESITAS RESPUESTA URGENTE? -->
           <tr>
-            <td style="padding:36px 40px 0;">
+            <td style="padding:24px 40px 0;">
               <table width="100%" cellpadding="0" cellspacing="0" border="0"
                 style="background-color:#0d0d0d;border:1px solid #1a1a1a;">
                 <tr>
@@ -386,8 +386,8 @@ export async function POST(req: NextRequest) {
 
     const subjectLabel = subjectLabels[subject] || subject
 
-    // Email de notificación al equipo Fitmaster
-    await resend.emails.send({
+    // Resend v3 devuelve { data, error } en lugar de lanzar excepciones
+    const { error: teamError } = await resend.emails.send({
       from: FROM_EMAIL,
       to: RECIPIENT_EMAIL,
       reply_to: email,
@@ -395,17 +395,29 @@ export async function POST(req: NextRequest) {
       html: buildTeamEmail({ name, email, phone, subjectLabel, message }),
     })
 
-    // Email de confirmación al usuario
-    await resend.emails.send({
+    if (teamError) {
+      console.error('[Resend] Error email equipo:', JSON.stringify(teamError))
+      return NextResponse.json(
+        { error: `Error al enviar: ${teamError.message}` },
+        { status: 500 }
+      )
+    }
+
+    // Confirmación al usuario — si falla no bloquea (el equipo ya recibió el aviso)
+    const { error: userError } = await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
       subject: `Hemos recibido tu mensaje, ${name} — Fitmaster`,
       html: buildUserEmail({ name, subjectLabel, message }),
     })
 
+    if (userError) {
+      console.error('[Resend] Error email confirmación usuario:', JSON.stringify(userError))
+    }
+
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error enviando email:', error)
+    console.error('[Contact API] Error inesperado:', error)
     return NextResponse.json(
       { error: 'Error interno al enviar el mensaje.' },
       { status: 500 }
