@@ -35,6 +35,86 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://fitmaster.es/tienda' },
 }
 
+const storeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Store',
+  '@id': 'https://fitmaster.es/tienda#store',
+  name: 'Fitmaster — Tienda de Suplementación en Gijón',
+  description:
+    'Distribuidor oficial Life Pro Nutrition en Gijón. Proteínas, creatina, pre-entrenos, vitaminas y más, con asesoramiento personalizado y posibilidad de probar sabores antes de comprar.',
+  url: 'https://fitmaster.es/tienda',
+  image: 'https://fitmaster.es/opengraph-image',
+  telephone: '+34722624740',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Avenida de Portugal, 9, Bajo',
+    addressLocality: 'Gijón',
+    addressRegion: 'Asturias',
+    postalCode: '33207',
+    addressCountry: 'ES',
+  },
+  parentOrganization: { '@id': 'https://fitmaster.es/#business' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Suplementación deportiva Life Pro — Fitmaster Gijón',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Product',
+          name: 'Proteína Whey Life Pro',
+          description: 'Proteína de suero de alta calidad con múltiples sabores. Posibilidad de probar antes de comprar en tienda.',
+          category: 'Proteínas',
+          brand: { '@type': 'Brand', name: 'Life Pro Nutrition' },
+          offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', seller: { '@id': 'https://fitmaster.es/#business' } },
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Product',
+          name: 'Creatina Monohidrato Life Pro',
+          description: 'Creatina monohidrato de pureza farmacéutica para mejorar la fuerza y el rendimiento deportivo.',
+          category: 'Creatina',
+          brand: { '@type': 'Brand', name: 'Life Pro Nutrition' },
+          offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', seller: { '@id': 'https://fitmaster.es/#business' } },
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Product',
+          name: 'Pre-Entreno Life Pro',
+          description: 'Pre-entreno con cafeína y otros ingredientes activos para maximizar el rendimiento en el entrenamiento.',
+          category: 'Pre-entrenos',
+          brand: { '@type': 'Brand', name: 'Life Pro Nutrition' },
+          offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', seller: { '@id': 'https://fitmaster.es/#business' } },
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Product',
+          name: 'Vitaminas y Minerales Life Pro',
+          description: 'Suplementos vitamínicos y minerales para complementar la dieta del deportista.',
+          category: 'Vitaminas',
+          brand: { '@type': 'Brand', name: 'Life Pro Nutrition' },
+          offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', seller: { '@id': 'https://fitmaster.es/#business' } },
+        },
+      },
+    ],
+  },
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://fitmaster.es' },
+    { '@type': 'ListItem', position: 2, name: 'Tienda', item: 'https://fitmaster.es/tienda' },
+  ],
+}
+
 const whyBuy = [
   { icon: <ShieldCheck size={24} className="text-fitgreen" />, title: 'Calidad asegurada', text: 'Solo trabajamos productos contrastados que cumplan con los mayores estándares de calidad.' },
   { icon: <Star size={24} className="text-fitgreen" />, title: 'Recomendación real', text: 'Te orientamos según lo que necesitas de verdad. Sin comisiones ocultas ni productos empujados sin criterio.' },
@@ -45,6 +125,15 @@ const whyBuy = [
 export default function TiendaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(storeSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* HERO */}
       <section className="relative min-h-[70vh] bg-black pt-20 grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] overflow-hidden">
         <div className="flex flex-col justify-end px-8 lg:px-12 py-16 lg:py-20 relative">

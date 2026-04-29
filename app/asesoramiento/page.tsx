@@ -81,6 +81,71 @@ const faqs = [
   { q: '¿Cómo puedo saber precios y condiciones?', a: 'Solicita información y te explicamos la opción que mejor encaja contigo.' },
 ]
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': 'https://fitmaster.es/asesoramiento#faq',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Para quién es el asesoramiento de Fitmaster?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Para cualquier persona que quiera dejar de improvisar y avanzar con un sistema claro: ya sea alguien que empieza desde cero, alguien que lleva tiempo entrenando sin ver resultados, o alguien que quiere prepararse para competición. El asesoramiento de Pablo Álvarez está disponible presencialmente en Gijón y online en toda España.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué incluye el plan de asesoramiento personalizado?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Incluye plan de entrenamiento personalizado, plan nutricional adaptado a tu objetivo, seguimiento periódico con revisiones y ajustes cada dos semanas, y acceso directo a Pablo Álvarez para resolver dudas. Todo diseñado desde cero según tu punto de partida, objetivo y contexto real.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto cuesta el asesoramiento fitness de Pablo Álvarez?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El precio varía según el plan y la duración. Puedes consultar los detalles directamente por WhatsApp al 722 624 740 o a través del formulario de contacto en fitmaster.es/contacto. La primera valoración inicial es sin coste.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿El asesoramiento es presencial o se puede hacer online?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ambas modalidades. El asesoramiento presencial se realiza en la tienda Fitmaster, en Avenida de Portugal 9, Gijón. El asesoramiento online está disponible para clientes de toda España, con el mismo sistema de seguimiento y revisiones periódicas.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto tiempo tardaré en ver resultados?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Los primeros cambios visibles suelen aparecer entre las 4 y 8 semanas con constancia en el seguimiento del plan. El proceso depende del punto de partida y el objetivo, pero el método de Pablo Álvarez está diseñado para producir resultados sostenibles, no cambios puntuales que se revierten.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué diferencia a Fitmaster de otros entrenadores personales en Gijón?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Pablo Álvarez es Campeón de España de Culturismo y entrenador certificado con más de 250 personas transformadas. La combinación de experiencia competitiva de alto nivel, titulación oficial y seguimiento real y continuo es única en Asturias.',
+      },
+    },
+  ],
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://fitmaster.es' },
+    { '@type': 'ListItem', position: 2, name: 'Asesoramiento', item: 'https://fitmaster.es/asesoramiento' },
+  ],
+}
+
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -140,6 +205,14 @@ export default function AsesoramientoPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {/* HERO editorial split */}

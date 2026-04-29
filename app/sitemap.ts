@@ -31,10 +31,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/pablo-alvarez`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}/sobre-nosotros`,
       lastModified,
       changeFrequency: 'yearly',
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/contacto`,

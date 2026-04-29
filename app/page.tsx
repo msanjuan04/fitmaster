@@ -4,24 +4,40 @@ import { ArrowRight, CheckCircle, Check } from 'lucide-react'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 
 export const metadata: Metadata = {
-  title: 'Fitmaster Gijón — Método, Disciplina, Resultados',
+  // absolute bypasses the layout template to evitar doble "Fitmaster"
+  title: {
+    absolute: 'Fitmaster Gijón — Asesoramiento Fitness y Suplementación · Pablo Álvarez',
+  },
   description:
-    'Ecosistema fitness en Gijón: asesoramiento personalizado, suplementación Life Pro y seguimiento real. Deja de improvisar y transforma tu físico con criterio.',
+    'Asesoramiento fitness personalizado con Pablo Álvarez, Campeón de España de Culturismo. Suplementación Life Pro y seguimiento real en Gijón. Transforma tu físico con criterio.',
   openGraph: {
-    title: 'Fitmaster — Método, Disciplina, Resultados',
+    title: 'Fitmaster Gijón — Asesoramiento Fitness y Suplementación · Pablo Álvarez',
     description:
-      'Asesoramiento personalizado, suplementación estratégica y seguimiento real en Gijón.',
+      'Asesoramiento personalizado con Pablo Álvarez, Campeón de España. Suplementación Life Pro y seguimiento real en Gijón.',
     url: 'https://fitmaster.es',
     images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Fitmaster — Método, Disciplina, Resultados',
+    title: 'Fitmaster Gijón — Asesoramiento Fitness y Suplementación · Pablo Álvarez',
     description:
-      'Asesoramiento personalizado, suplementación Life Pro y seguimiento real en Gijón.',
+      'Pablo Álvarez, Campeón de España. Asesoramiento personalizado, suplementación Life Pro y seguimiento real en Gijón.',
     images: ['/opengraph-image'],
   },
   alternates: { canonical: 'https://fitmaster.es' },
+}
+
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'Fitmaster Gijón — Asesoramiento Fitness y Suplementación',
+  description:
+    'Fitmaster es el ecosistema fitness en Gijón fundado por Pablo Álvarez, Campeón de España de Culturismo. Asesoramiento personalizado, suplementación Life Pro y seguimiento real.',
+  thumbnailUrl: 'https://fitmaster.es/opengraph-image',
+  uploadDate: '2024-01-01',
+  contentUrl: 'https://fitmaster.es/videohome.mp4',
+  embedUrl: 'https://fitmaster.es',
+  publisher: { '@id': 'https://fitmaster.es/#organization' },
 }
 
 const services = [
@@ -66,6 +82,11 @@ const forYou = [
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
+      />
+
       {/* ── HERO: layout editorial dos columnas (D) ── */}
       <section className="relative min-h-screen bg-black pt-20 grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] overflow-hidden">
 

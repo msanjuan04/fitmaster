@@ -57,9 +57,23 @@ const sponsorValues = [
   'Proyección y crecimiento como atleta',
 ]
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://fitmaster.es' },
+    { '@type': 'ListItem', position: 2, name: 'Equipo de Competición', item: 'https://fitmaster.es/equipo' },
+  ],
+}
+
 export default function EquipoPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* HERO */}
       <section className="relative min-h-[75vh] bg-black pt-20 grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] overflow-hidden">
         <div className="flex flex-col justify-end px-8 lg:px-12 py-16 lg:py-20 relative">

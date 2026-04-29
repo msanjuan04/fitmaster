@@ -140,53 +140,6 @@ export default function JsonLd() {
       'Pablo Álvarez, Campeón de España de Culturismo, entrenador personal certificado y fundador de Fitmaster Gijón. Más de 250 personas transformadas con un método basado en criterio, seguimiento real y resultados medibles.',
   }
 
-  const faq = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: '¿Para quién es el asesoramiento de Fitmaster?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Para cualquier persona que quiera dejar de improvisar y avanzar con un sistema claro: ya sea alguien que empieza desde cero, alguien que lleva tiempo entrenando sin ver resultados, o alguien que quiere prepararse para competición.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Qué incluye el plan de asesoramiento?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Incluye plan de entrenamiento personalizado, plan nutricional adaptado a tu objetivo, seguimiento periódico con revisiones y ajustes, y acceso directo al entrenador para resolver dudas.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Dónde está Fitmaster en Gijón?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Fitmaster está en Avenida de Portugal 9, Bajo, 33207 Gijón, Asturias. Horario de lunes a viernes de 10:30 a 13:30 y de 17:30 a 20:30.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Qué suplementos vende Fitmaster?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Fitmaster es distribuidor oficial de Life Pro Nutrition, una de las marcas de suplementación deportiva de mayor calidad en España. Proteínas, creatina, pre-entrenos, vitaminas y más, con recomendación personalizada y posibilidad de probar sabores antes de comprar.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Cómo puedo contactar con Fitmaster?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Puedes contactar por WhatsApp al 722 624 740, por email a fitmastergijon@gmail.com, o visitarnos directamente en nuestra tienda en Avenida de Portugal 9, Gijón.',
-        },
-      },
-    ],
-  }
-
   return (
     <>
       <script
@@ -204,10 +157,6 @@ export default function JsonLd() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
       />
     </>
   )
