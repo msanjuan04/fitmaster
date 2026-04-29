@@ -19,6 +19,8 @@ REPO_URL="${FITMASTER_REPO_URL:-https://github.com/msanjuan04/fitmaster.git}"
 BRANCH="${FITMASTER_BRANCH:-main}"
 BIND_HOST="${FITMASTER_BIND:-127.0.0.1}"
 PORT="${FITMASTER_PORT:-3000}"
+# Puerto donde Nginx acepta tráfico HTTP desde fuera (no confundir con Next, que suele estar en PORT).
+NGINX_PUBLIC_PORT="${NGINX_PUBLIC_PORT:-8854}"
 # Dominio público (para Nginx server_name); con DNS Nominalia → IP del VPS antes de usar HTTPS.
 FITMASTER_DOMAIN="${FITMASTER_DOMAIN:-fitmaster.es}"
 
@@ -86,8 +88,8 @@ EOF
 NGINX_SITE=/etc/nginx/sites-available/fitmaster
 tee "$NGINX_SITE" >/dev/null <<NGINX_EOF
 server {
-    listen 80;
-    listen [::]:80;
+    listen ${NGINX_PUBLIC_PORT};
+    listen [::]:${NGINX_PUBLIC_PORT};
 
     server_name ${FITMASTER_DOMAIN} www.${FITMASTER_DOMAIN};
 
@@ -115,15 +117,17 @@ systemctl restart nginx
 
 if command -v ufw >/dev/null 2>&1; then
   ufw allow OpenSSH >/dev/null 2>&1 || true
+  ufw allow "${NGINX_PUBLIC_PORT}/tcp" >/dev/null 2>&1 || true
   ufw allow 'Nginx Full' >/dev/null 2>&1 || true
   ufw --force enable >/dev/null 2>&1 || true
 fi
 
 echo ""
-echo "Listo. App en ${INSTALL_DIR}, Next escuchando ${BIND_HOST}:${PORT}; Nginx (80) sirve fitmaster.es."
+echo "Listo. App en ${INSTALL_DIR}, Next en ${BIND_HOST}:${PORT}; Nginx escucha el puerto ${NGINX_PUBLIC_PORT} (ej. http://TU_DOMINIO:${NGINX_PUBLIC_PORT})."
 echo "Logs: journalctl -u fitmaster -f"
 echo ""
-echo "Si el DNS ya apunta este servidor, activa HTTPS (Let's Encrypt):"
+echo "Certbot suele usar el puerto 80 para el reto HTTP-01; con Nginx sólo en ${NGINX_PUBLIC_PORT} quizá necesites desafío DNS o abrir temporalmente el 443/80 sólo para el certificado."
+echo "Si tienes DNS y puertos estándares para HTTPS:"
 echo "  sudo apt install -y certbot python3-certbot-nginx"
 echo "  sudo certbot --nginx -d ${FITMASTER_DOMAIN} -d www.${FITMASTER_DOMAIN}"
 echo ""
