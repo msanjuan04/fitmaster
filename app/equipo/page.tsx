@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import FmtTeamLogo from '@/components/FmtTeamLogo'
 
+// Placeholder negro 1×1 válido — evita destello blanco/gris mientras carga
+const DARK_BLUR = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg=='
+
 const athleteImages = [
   '/equipo/cf1.jpeg',
   '/equipo/cf2.jpeg',
@@ -210,7 +213,10 @@ export default function EquipoPage() {
                   fill
                   className="object-contain transition-transform duration-500 group-hover:scale-105"
                   sizes="240px"
-                  priority={i < 4}
+                  quality={75}
+                  priority={i < 3}
+                  placeholder="blur"
+                  blurDataURL={DARK_BLUR}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               </div>
@@ -241,7 +247,10 @@ export default function EquipoPage() {
                   fill
                   className="object-contain transition-transform duration-500 group-hover:scale-105"
                   sizes="(min-width: 1280px) 20vw, 25vw"
-                  priority={i < 5}
+                  quality={75}
+                  priority={i < 10}
+                  placeholder="blur"
+                  blurDataURL={DARK_BLUR}
                 />
                 {/* gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
@@ -282,6 +291,10 @@ export default function EquipoPage() {
                   height={900}
                   className="w-full h-auto block"
                   sizes="72vw"
+                  quality={72}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={DARK_BLUR}
                 />
               </div>
             ))}
@@ -300,7 +313,10 @@ export default function EquipoPage() {
                     height={900}
                     className="w-full h-auto block"
                     sizes="(min-width: 1024px) 25vw, 33vw"
-                    priority={i < 4}
+                    quality={72}
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL={DARK_BLUR}
                   />
                 </div>
               ))}

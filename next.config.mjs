@@ -5,7 +5,9 @@ const nextConfig = {
 
   images: {
     formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 86400,
+    minimumCacheTTL: 2592000, // 30 días — imágenes estáticas no cambian
+    deviceSizes: [640, 828, 1080, 1280, 1920],
+    imageSizes: [64, 128, 256, 384, 512],
   },
 
   async headers() {
